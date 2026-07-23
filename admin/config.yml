@@ -1,0 +1,421 @@
+# CMS login on GitHub Pages:
+#
+# The GitHub sign-in popup uses the Cloudflare Worker in cms-auth/.
+
+backend:
+  name: github
+  repo: Twilight-Riku/LRWeb-private
+  branch: master
+  base_url: https://lrweb-cms-auth.wes931.workers.dev
+
+media_folder: "assets/images/blog"
+public_folder: "/assets/images/blog"
+
+singletons:
+  - name: "home"
+    label: "Home Page"
+    icon: "home"
+    file: "_data/pages/home.yml"
+    fields:
+      - label: "About Teaser"
+        name: "about"
+        widget: "object"
+        fields:
+          - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Paragraphs", name: "paragraphs", widget: "list", field: { label: "Paragraph", name: "paragraph", widget: "text" } }
+          - { label: "Button Label", name: "button_label", widget: "string" }
+      - label: "Blog Teaser"
+        name: "blog"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "text" }
+          - { label: "Button Label", name: "button_label", widget: "string" }
+
+  - name: "about"
+    label: "About Page"
+    icon: "person"
+    file: "_data/pages/about.yml"
+    fields:
+      - label: "Header"
+        name: "header"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "string" }
+      - label: "Story"
+        name: "story"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Paragraphs", name: "paragraphs", widget: "list", field: { label: "Paragraph", name: "paragraph", widget: "text" } }
+      - label: "Credentials"
+        name: "credentials"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+      - label: "Call to Action"
+        name: "cta"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Text", name: "text", widget: "text" }
+          - { label: "Button Label", name: "button_label", widget: "string" }
+          - { label: "Button URL", name: "button_url", widget: "string" }
+
+  - name: "blog_page"
+    label: "Blog Page"
+    icon: "article"
+    file: "_data/pages/blog.yml"
+    fields:
+      - label: "Header"
+        name: "header"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "text" }
+      - label: "Library"
+        name: "library"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Text", name: "text", widget: "text" }
+              - { label: "URL", name: "url", widget: "string" }
+              - { label: "Image Class", name: "image_class", widget: "string" }
+      - label: "Subscribe Strip"
+        name: "subscribe"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Text", name: "text", widget: "text" }
+          - { label: "Button Label", name: "button_label", widget: "string" }
+      - { label: "Empty Text", name: "empty_text", widget: "string" }
+
+  - name: "contact"
+    label: "Contact Page"
+    icon: "mail"
+    file: "_data/pages/contact.yml"
+    fields:
+      - label: "Header"
+        name: "header"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "text" }
+      - label: "Form"
+        name: "form"
+        widget: "object"
+        fields:
+          - { label: "Name Placeholder", name: "name_placeholder", widget: "string" }
+          - { label: "Email Placeholder", name: "email_placeholder", widget: "string" }
+          - { label: "Phone Placeholder", name: "phone_placeholder", widget: "string" }
+          - { label: "Message Placeholder", name: "message_placeholder", widget: "string" }
+          - { label: "Button Label", name: "button_label", widget: "string" }
+
+  - name: "buy_your_home"
+    label: "Buy a Home Page"
+    icon: "real_estate_agent"
+    file: "_data/pages/buy_your_home.yml"
+    fields:
+      - label: "Header"
+        name: "header"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "text" }
+      - label: "Form"
+        name: "form"
+        widget: "object"
+        fields:
+          - { label: "Intro", name: "intro", widget: "text" }
+          - { label: "Button Label", name: "button_label", widget: "string" }
+
+  - name: "sell_your_home"
+    label: "Sell Your Home Page"
+    icon: "sell"
+    file: "_data/pages/sell_your_home.yml"
+    fields:
+      - label: "Header"
+        name: "header"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "text" }
+      - label: "Form"
+        name: "form"
+        widget: "object"
+        fields:
+          - { label: "Intro", name: "intro", widget: "text" }
+          - { label: "Button Label", name: "button_label", widget: "string" }
+
+  - name: "marketing"
+    label: "Marketing Page"
+    icon: "campaign"
+    file: "_data/pages/marketing.yml"
+    fields:
+      - label: "Hero"
+        name: "hero"
+        widget: "object"
+        fields:
+          - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "string" }
+          - { label: "Text", name: "text", widget: "text" }
+          - { label: "Button Label", name: "button_label", widget: "string" }
+          - { label: "Button URL", name: "button_url", widget: "string" }
+      - label: "Intro"
+        name: "intro"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Text", name: "text", widget: "text" }
+      - label: "Services"
+        name: "services"
+        widget: "list"
+        summary: "{{fields.title}}"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Text", name: "text", widget: "text" }
+      - label: "Process"
+        name: "process"
+        widget: "object"
+        fields:
+          - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Steps", name: "steps", widget: "list", field: { label: "Step", name: "step", widget: "string" } }
+      - label: "Call to Action"
+        name: "cta"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Text", name: "text", widget: "text" }
+          - { label: "Button Label", name: "button_label", widget: "string" }
+          - { label: "Button URL", name: "button_url", widget: "string" }
+
+  - name: "home_valuation"
+    label: "Home Valuation Page"
+    icon: "request_quote"
+    file: "_data/pages/home_valuation.yml"
+    fields:
+      - label: "Hero"
+        name: "hero"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Text", name: "text", widget: "text" }
+          - { label: "Button Label", name: "button_label", widget: "string" }
+          - { label: "Button URL", name: "button_url", widget: "string" }
+      - { label: "Steps Heading", name: "steps_heading", widget: "string" }
+      - label: "Steps"
+        name: "steps"
+        widget: "list"
+        summary: "{{fields.title}}"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Text", name: "text", widget: "text" }
+      - label: "Meeting CTA"
+        name: "meeting_cta"
+        widget: "object"
+        fields:
+          - { label: "Button Label", name: "button_label", widget: "string" }
+          - { label: "Button URL", name: "button_url", widget: "string" }
+      - { label: "Benefits Heading", name: "benefits_heading", widget: "string" }
+      - label: "Benefits"
+        name: "benefits"
+        widget: "list"
+        summary: "{{fields.title}}"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Text", name: "text", widget: "text" }
+
+  - name: "buyer_thanks"
+    label: "Buyer Thank You Page"
+    icon: "check_circle"
+    file: "_data/pages/buyer_thanks.yml"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Text", name: "text", widget: "text" }
+      - { label: "Home Button Label", name: "home_button_label", widget: "string" }
+      - { label: "Search Button Label", name: "search_button_label", widget: "string" }
+
+  - name: "seller_thanks"
+    label: "Seller Thank You Page"
+    icon: "check_circle"
+    file: "_data/pages/seller_thanks.yml"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Text", name: "text", widget: "text" }
+      - { label: "Home Button Label", name: "home_button_label", widget: "string" }
+      - { label: "Valuation Button Label", name: "valuation_button_label", widget: "string" }
+      - { label: "Valuation URL", name: "valuation_url", widget: "string" }
+
+  - name: "thanks"
+    label: "Thank You Page"
+    icon: "check_circle"
+    file: "_data/pages/thanks.yml"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Text", name: "text", widget: "text" }
+      - { label: "Button Label", name: "button_label", widget: "string" }
+      - { label: "Button URL", name: "button_url", widget: "string" }
+
+  - name: "not_found"
+    label: "404 Page"
+    icon: "error"
+    file: "_data/pages/not_found.yml"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Subtitle", name: "subtitle", widget: "string" }
+      - { label: "Text", name: "text", widget: "text" }
+      - { label: "Button Label", name: "button_label", widget: "string" }
+      - { label: "Button URL", name: "button_url", widget: "string" }
+
+  - name: "settings"
+    label: "Site Settings"
+    icon: "settings"
+    file: "_data/site.yml"
+    fields:
+      - { label: "Web3Forms Access Key", name: "web3forms_access_key", widget: "string" }
+      - { label: "Tagline", name: "tagline", widget: "string" }
+      - { label: "Phone", name: "phone", widget: "string" }
+      - { label: "Email", name: "email", widget: "string" }
+      - { label: "License", name: "license", widget: "string" }
+      - label: "Responsible Brokerage"
+        name: "brokerage"
+        widget: "object"
+        fields:
+          - { label: "Brokerage Name", name: "name", widget: "string" }
+          - { label: "Brokerage License", name: "license", widget: "string" }
+      - label: "Fonts"
+        name: "fonts"
+        widget: "object"
+        fields:
+          - { label: "Heading Font", name: "heading", widget: "string", hint: "Google Fonts family name, e.g. Playfair Display" }
+          - { label: "Body Font", name: "body", widget: "string", hint: "Google Fonts family name, e.g. Inter" }
+      - label: "Colors"
+        name: "colors"
+        widget: "object"
+        fields:
+          - { label: "Social Icon Hover Background", name: "social_icon_hover_background", widget: "color" }
+          - label: "Page / Surfaces"
+            name: "page"
+            widget: "object"
+            fields:
+              - { label: "Page Background", name: "background", widget: "color" }
+              - { label: "Card / Surface Background", name: "surface_background", widget: "color" }
+              - { label: "Alternate Section Background", name: "alternate_section_background", widget: "color" }
+          - label: "Text / Links"
+            name: "text"
+            widget: "object"
+            fields:
+              - { label: "Heading Text", name: "heading", widget: "color" }
+              - { label: "Body Text", name: "body", widget: "color" }
+              - { label: "Muted Text", name: "muted", widget: "color" }
+              - { label: "Borders / Dividers", name: "border", widget: "color" }
+              - { label: "Decorative Accent", name: "accent", widget: "color" }
+              - { label: "Text Links", name: "link", widget: "color" }
+              - { label: "Text Links Hover", name: "link_hover", widget: "color" }
+          - label: "Buttons"
+            name: "buttons"
+            widget: "object"
+            fields:
+              - { label: "Button Background", name: "background", widget: "color" }
+              - { label: "Button Text", name: "text", widget: "color" }
+              - { label: "Button Hover Background", name: "hover_background", widget: "color" }
+              - { label: "Button Hover Text", name: "hover_text", widget: "color" }
+              - { label: "Hero / CTA Button Background", name: "hero_background", widget: "color" }
+              - { label: "Hero / CTA Button Text", name: "hero_text", widget: "color" }
+              - { label: "Hero / CTA Button Hover Background", name: "hero_hover_background", widget: "color" }
+          - label: "Navigation"
+            name: "navigation"
+            widget: "object"
+            fields:
+              - { label: "Navigation Background", name: "background", widget: "color" }
+              - { label: "Navigation Text", name: "text", widget: "color" }
+              - { label: "Navigation Active Underline", name: "active", widget: "color" }
+              - { label: "Navigation Phone", name: "phone", widget: "color" }
+              - { label: "Dropdown Background", name: "dropdown_background", widget: "color" }
+              - { label: "Dropdown Hover Background", name: "dropdown_hover_background", widget: "color" }
+              - { label: "Dropdown Hover Text", name: "dropdown_hover_text", widget: "color" }
+          - label: "Sections"
+            name: "sections"
+            widget: "object"
+            fields:
+              - { label: "Dark Section Background", name: "dark_background", widget: "color" }
+              - { label: "Dark Section Text", name: "dark_text", widget: "color" }
+              - { label: "Dark Section Muted Text", name: "dark_muted_text", widget: "string" }
+          - label: "Forms"
+            name: "forms"
+            widget: "object"
+            fields:
+              - { label: "Form Background", name: "background", widget: "color" }
+              - { label: "Form Field Background", name: "field_background", widget: "color" }
+              - { label: "Form Field Border", name: "field_border", widget: "color" }
+              - { label: "Form Focus Border", name: "focus_border", widget: "color" }
+          - label: "Footer"
+            name: "footer"
+            widget: "object"
+            fields:
+              - { label: "Footer Background", name: "background", widget: "color" }
+              - { label: "Footer Text", name: "text", widget: "color" }
+              - { label: "Footer Muted Text", name: "muted_text", widget: "string" }
+              - { label: "Footer Link Hover", name: "link_hover", widget: "color" }
+      - label: "Social Links"
+        name: "social"
+        widget: "object"
+        fields:
+          - { label: "Facebook", name: "facebook", widget: "string", required: false }
+          - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
+          - { label: "Instagram", name: "instagram", widget: "string", required: false }
+          - { label: "Pinterest", name: "pinterest", widget: "string", required: false }
+
+  - name: "areas"
+    label: "Area Links"
+    icon: "map"
+    file: "_data/areas.yml"
+    fields:
+      - { label: "Home Search URL", name: "home_search_url", widget: "string" }
+      - label: "County Links"
+        name: "county_links"
+        widget: "list"
+        summary: "{{fields.name}}"
+        fields:
+          - { label: "County Name", name: "name", widget: "string" }
+          - { label: "CSS Slug", name: "slug", widget: "string" }
+          - { label: "IDX URL", name: "url", widget: "string" }
+          - label: "Subtabs"
+            name: "subareas"
+            widget: "list"
+            required: false
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "IDX URL", name: "url", widget: "string" }
+
+collections:
+  - name: "posts"
+    label: "Blog Posts"
+    icon: "edit_note"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "post" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Excerpt", name: "excerpt", widget: "text", required: false, hint: "Short summary shown on the blog index page." }
+      - { label: "Featured Image", name: "image", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
